@@ -83,6 +83,7 @@ var renderPins = function (adsArray) {
 var mainMapPin = mapPins.querySelector('.map__pin--main');
 var mapFiltersForm = map.querySelector('.map__filters');
 var adForm = document.querySelector('.ad-form');
+adForm.setAttribute('action', 'https://javascript.pages.academy/keksobooking');
 var addressInput = adForm.querySelector('#address');
 
 var getMainPinCoordinate = function (offsetX, offsetY) {
@@ -133,4 +134,24 @@ mainMapPin.addEventListener('keydown', function (evt) {
     evt.preventDefault();
     activatePage();
   }
+
+var roomQuantity = adForm.querySelector('#room_number');
+var guestQuantity = adForm.querySelector('#capacity');
+
+var compareRoomAndGuestQuantity = function () {
+  if (roomQuantity.value === '1' && guestQuantity.value !== '1') {
+    guestQuantity.setCustomValidity('В одной комнате можно разместить только одного гостя!');
+  } else if (roomQuantity.value === '2' && guestQuantity.value !== '1' && guestQuantity.value !== '2') {
+    guestQuantity.setCustomValidity('В двух комнатах можно разместить только одного или двух гостей!');
+  } else if (roomQuantity.value === '3' && guestQuantity.value === '0') {
+    guestQuantity.setCustomValidity('В трех комнатах можно разместить не менее одного и не более трех гостей!');
+  } else if (roomQuantity.value === '100' && guestQuantity.value !== '0') {
+    guestQuantity.setCustomValidity('Не для гостей!');
+  } else {
+    guestQuantity.setCustomValidity('');
+  }
+};
+
+adForm.addEventListener('click', function () {
+  compareRoomAndGuestQuantity();
 });
