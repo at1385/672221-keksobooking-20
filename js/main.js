@@ -4,6 +4,8 @@ var OFFER_TYPES = ['palace', 'flat', 'house', 'bungalo'];
 var OFFER_TIMES = ['12:00', '13:00', '14:00'];
 var PIN_X_OFFSET = -25;
 var PIN_Y_OFFSET = -70;
+var MAIN_PIN_SIZE = 65;
+var MAIN_PIN_POINTER_HEIGHT = 22;
 
 var getRandomElement = function (array) {
   return array[Math.floor(Math.random() * array.length)];
@@ -48,10 +50,11 @@ var getAdsArray = function (itemQuantity) {
   return ads;
 };
 
-var map = document.querySelector('.map');
-map.classList.remove('map--faded');
+var ads = getAdsArray(8);
 
+var map = document.querySelector('.map');
 var mapPins = map.querySelector('.map__pins');
+
 var pinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
 
 var createPin = function (pin) {
@@ -75,81 +78,88 @@ var renderPins = function (adsArray) {
   mapPins.appendChild(fragment);
 };
 
-var ads = getAdsArray(8);
-renderPins(ads);
+// 11. Личный проект: доверяй, но проверяй (часть 1)
 
-var mapFiltersContainer = map.querySelector('.map__filters-container');
-var cardTemplate = document.querySelector('#card').content.querySelector('.map__card');
-var mapCards = document.createElement('div');
-mapCards.className = 'map__cards';
+var mainMapPin = mapPins.querySelector('.map__pin--main');
+var mapFiltersForm = map.querySelector('.map__filters');
+var adForm = document.querySelector('.ad-form');
+adForm.setAttribute('action', 'https://javascript.pages.academy/keksobooking');
+var addressInput = adForm.querySelector('#address');
 
-var translateOfferType = function (offerType) {
-  switch (offerType) {
-    case 'palace':
-      offerType = 'Дворец';
-      break;
-
-    case 'flat':
-      offerType = 'Квартира';
-      break;
-
-    case 'house':
-      offerType = 'Дом';
-      break;
-
-    case 'bungalo':
-      offerType = 'Бунгало';
-      break;
-  }
-
-  return offerType;
+var getMainPinCoordinate = function (offsetX, offsetY) {
+  return (mainMapPin.offsetLeft + offsetX) + ', ' + (mainMapPin.offsetTop + offsetY);
 };
 
-var fillList = function (listItems, array) {
-  for (var i = 0; i < listItems.length; i++) {
-    listItems[i].textContent = array[i];
+addressInput.value = getMainPinCoordinate(Math.round(MAIN_PIN_SIZE / 2), Math.round(MAIN_PIN_SIZE / 2));
+
+var deactivateFormElements = function (form, elementTagName) {
+  var elements = form.querySelectorAll(elementTagName);
+
+  for (var i = 0; i < elements.length; i++) {
+    elements[i].setAttribute('disabled', true);
   }
 };
 
-var addPhotos = function (array, photo) {
-  var fragment = document.createDocumentFragment();
+var activateFormElements = function (form, elementTagName) {
+  var elements = form.querySelectorAll(elementTagName);
 
-  for (var i = 0; i < array.length; i++) {
-    var newPhoto = photo.cloneNode(true);
-    newPhoto.src = array[i];
-    fragment.appendChild(newPhoto);
+  for (var i = 0; i < elements.length; i++) {
+    elements[i].removeAttribute('disabled');
   }
-
-  return fragment;
 };
 
-var createCard = function (card) {
-  var cardElement = cardTemplate.cloneNode(true);
+deactivateFormElements(mapFiltersForm, 'select');
+deactivateFormElements(mapFiltersForm, 'fieldset');
+deactivateFormElements(adForm, 'fieldset');
 
-  cardElement.querySelector('.popup__avatar').src = card.author.avatar;
-  cardElement.querySelector('.popup__title').textContent = card.offer.title;
-  cardElement.querySelector('.popup__text--address').textContent = card.offer.address;
-  cardElement.querySelector('.popup__text--price').textContent = card.offer.price + '₽/ночь';
-  cardElement.querySelector('.popup__type').textContent = translateOfferType(card.offer.type);
-  cardElement.querySelector('.popup__text--capacity').textContent = card.offer.rooms + ' комнаты для ' + card.offer.guests + ' гостей';
-  cardElement.querySelector('.popup__text--time').textContent = 'Заезд после ' + card.offer.checkin + ', выезд до ' + card.offer.checkout;
-  var cardFeatures = cardElement.querySelectorAll('.popup__feature');
-  fillList(cardFeatures, card.offer.features);
-  cardElement.querySelector('.popup__description').textContent = card.offer.description;
-  var cardPhoto = cardElement.querySelector('.popup__photo');
-  cardElement.querySelector('.popup__photos').removeChild(cardPhoto);
-  cardElement.querySelector('.popup__photos').appendChild(addPhotos(card.offer.photos, cardPhoto));
-
-  return cardElement;
+var activatePage = function () {
+  map.classList.remove('map--faded');
+  adForm.classList.remove('ad-form--disabled');
+  addressInput.value = getMainPinCoordinate(Math.round(MAIN_PIN_SIZE / 2), MAIN_PIN_SIZE + MAIN_PIN_POINTER_HEIGHT);
+  activateFormElements(mapFiltersForm, 'select');
+  activateFormElements(mapFiltersForm, 'fieldset');
+  activateFormElements(adForm, 'fieldset');
+  renderPins(ads);
 };
 
-var renderCards = function (adsArray) {
-  var fragment = document.createDocumentFragment();
-
-  fragment.appendChild(createCard(adsArray[0]));
-
-  map.insertBefore(mapCards, mapFiltersContainer);
-  mapCards.appendChild(fragment);
+var onMainMapPinLeftClick = function (evt) {
+  if (evt.button === 0) {
+    evt.preventDefault();
+    activatePage();
+    mainMapPin.removeEventListener('mousedown', onMainMapPinLeftClick);
+    mainMapPin.removeEventListener('keydown', onMainMapPinEnterPress);
+  }
 };
 
-renderCards(ads);
+var onMainMapPinEnterPress = function (evt) {
+  if (evt.key === 'Enter') {
+    evt.preventDefault();
+    activatePage();
+    mainMapPin.removeEventListener('mousedown', onMainMapPinLeftClick);
+    mainMapPin.removeEventListener('keydown', onMainMapPinEnterPress);
+  }
+};
+
+mainMapPin.addEventListener('mousedown', onMainMapPinLeftClick);
+mainMapPin.addEventListener('keydown', onMainMapPinEnterPress);
+
+var roomQuantity = adForm.querySelector('#room_number');
+var guestQuantity = adForm.querySelector('#capacity');
+
+var compareRoomAndGuestQuantity = function () {
+  if (roomQuantity.value === '1' && guestQuantity.value !== '1') {
+    guestQuantity.setCustomValidity('В одной комнате можно разместить только одного гостя!');
+  } else if (roomQuantity.value === '2' && guestQuantity.value !== '1' && guestQuantity.value !== '2') {
+    guestQuantity.setCustomValidity('В двух комнатах можно разместить только одного или двух гостей!');
+  } else if (roomQuantity.value === '3' && guestQuantity.value === '0') {
+    guestQuantity.setCustomValidity('В трех комнатах можно разместить не менее одного и не более трех гостей!');
+  } else if (roomQuantity.value === '100' && guestQuantity.value !== '0') {
+    guestQuantity.setCustomValidity('Не для гостей!');
+  } else {
+    guestQuantity.setCustomValidity('');
+  }
+};
+
+adForm.addEventListener('click', function () {
+  compareRoomAndGuestQuantity();
+});
