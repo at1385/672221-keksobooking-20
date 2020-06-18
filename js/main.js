@@ -122,18 +122,26 @@ var activatePage = function () {
   renderPins(ads);
 };
 
-mainMapPin.addEventListener('mousedown', function (evt) {
+var onMainMapPinLeftClick = function (evt) {
   if (evt.button === 0) {
     evt.preventDefault();
     activatePage();
+    mainMapPin.removeEventListener('mousedown', onMainMapPinLeftClick);
+    mainMapPin.removeEventListener('keydown', onMainMapPinEnterPress);
   }
-});
+};
 
-mainMapPin.addEventListener('keydown', function (evt) {
+var onMainMapPinEnterPress = function (evt) {
   if (evt.key === 'Enter') {
     evt.preventDefault();
     activatePage();
+    mainMapPin.removeEventListener('mousedown', onMainMapPinLeftClick);
+    mainMapPin.removeEventListener('keydown', onMainMapPinEnterPress);
   }
+};
+
+mainMapPin.addEventListener('mousedown', onMainMapPinLeftClick);
+mainMapPin.addEventListener('keydown', onMainMapPinEnterPress);
 
 var roomQuantity = adForm.querySelector('#room_number');
 var guestQuantity = adForm.querySelector('#capacity');
