@@ -151,73 +151,9 @@ var renderCard = function (ad) {
   mapCardsContainer.appendChild(adCard);
 };
 
-// Дективация/Активация страницы
-var mainMapPin = mapPinsContainer.querySelector('.map__pin--main');
-var mapFiltersForm = map.querySelector('.map__filters');
-var adForm = document.querySelector('.ad-form');
-adForm.setAttribute('action', 'https://javascript.pages.academy/keksobooking');
-var adFormAddress = adForm.querySelector('#address');
-
-var getMainPinCoordinate = function (offsetX, offsetY) {
-  return (mainMapPin.offsetLeft + offsetX) + ', ' + (mainMapPin.offsetTop + offsetY);
-};
-
-adFormAddress.value = getMainPinCoordinate(Math.round(MAIN_PIN_SIZE / 2), Math.round(MAIN_PIN_SIZE / 2));
-
-var deactivateFormElements = function (form, elementTagName) {
-  var elements = form.querySelectorAll(elementTagName);
-
-  for (var i = 0; i < elements.length; i++) {
-    elements[i].setAttribute('disabled', true);
-  }
-};
-
-var activateFormElements = function (form, elementTagName) {
-  var elements = form.querySelectorAll(elementTagName);
-
-  for (var i = 0; i < elements.length; i++) {
-    elements[i].removeAttribute('disabled');
-  }
-};
-
-deactivateFormElements(mapFiltersForm, 'select');
-deactivateFormElements(mapFiltersForm, 'fieldset');
-deactivateFormElements(adForm, 'fieldset');
-
+// Открытие карточки объявления
 var mapPins = [];
 
-var activatePage = function () {
-  map.classList.remove('map--faded');
-  adForm.classList.remove('ad-form--disabled');
-  adFormAddress.value = getMainPinCoordinate(Math.round(MAIN_PIN_SIZE / 2), MAIN_PIN_SIZE + MAIN_PIN_POINTER_HEIGHT);
-  activateFormElements(mapFiltersForm, 'select');
-  activateFormElements(mapFiltersForm, 'fieldset');
-  activateFormElements(adForm, 'fieldset');
-  renderPins(ads);
-};
-
-var onMainMapPinLeftClick = function (evt) {
-  if (evt.button === 0) {
-    evt.preventDefault();
-    activatePage();
-    mainMapPin.removeEventListener('mousedown', onMainMapPinLeftClick);
-    mainMapPin.removeEventListener('keydown', onMainMapPinEnterPress);
-  }
-};
-
-var onMainMapPinEnterPress = function (evt) {
-  if (evt.key === 'Enter') {
-    evt.preventDefault();
-    activatePage();
-    mainMapPin.removeEventListener('mousedown', onMainMapPinLeftClick);
-    mainMapPin.removeEventListener('keydown', onMainMapPinEnterPress);
-  }
-};
-
-mainMapPin.addEventListener('mousedown', onMainMapPinLeftClick);
-mainMapPin.addEventListener('keydown', onMainMapPinEnterPress);
-
-// Открытие карточки объявления
 var openCard = function (mapPin, adCard) {
   mapPin.addEventListener('click', function () {
     if (mapCardsContainer.firstChild) {
@@ -250,18 +186,80 @@ var openCard = function (mapPin, adCard) {
 };
 
 var onMapPinClick = function (evt) {
-  mapPins = mapPinsContainer.children;
+  mapPins = mapPinsContainer.querySelectorAll('.map__pin');
 
   if (evt.target.matches('button') || evt.target.matches('img')) {
-    for (var i = 2; i < mapPins.length; i++) {
-      openCard(mapPins[i], ads[i - 2]);
+    for (var i = 1; i < mapPins.length; i++) {
+      openCard(mapPins[i], ads[i - 1]);
+      mapPinsContainer.removeEventListener('click', onMapPinClick, true);
     }
   }
-
-  mapPinsContainer.removeEventListener('click', onMapPinClick, true);
 };
 
-mapPinsContainer.addEventListener('click', onMapPinClick, true);
+// Деактивация/Активация страницы
+var mainMapPin = mapPinsContainer.querySelector('.map__pin--main');
+var mapFiltersForm = map.querySelector('.map__filters');
+var adForm = document.querySelector('.ad-form');
+adForm.setAttribute('action', 'https://javascript.pages.academy/keksobooking');
+var adFormAddress = adForm.querySelector('#address');
+
+var getMainPinCoordinate = function (offsetX, offsetY) {
+  return (mainMapPin.offsetLeft + offsetX) + ', ' + (mainMapPin.offsetTop + offsetY);
+};
+
+adFormAddress.value = getMainPinCoordinate(Math.round(MAIN_PIN_SIZE / 2), Math.round(MAIN_PIN_SIZE / 2));
+
+var deactivateFormElements = function (form, elementTagName) {
+  var elements = form.querySelectorAll(elementTagName);
+
+  for (var i = 0; i < elements.length; i++) {
+    elements[i].setAttribute('disabled', true);
+  }
+};
+
+var activateFormElements = function (form, elementTagName) {
+  var elements = form.querySelectorAll(elementTagName);
+
+  for (var i = 0; i < elements.length; i++) {
+    elements[i].removeAttribute('disabled');
+  }
+};
+
+deactivateFormElements(mapFiltersForm, 'select');
+deactivateFormElements(mapFiltersForm, 'fieldset');
+deactivateFormElements(adForm, 'fieldset');
+
+var activatePage = function () {
+  map.classList.remove('map--faded');
+  adForm.classList.remove('ad-form--disabled');
+  adFormAddress.value = getMainPinCoordinate(Math.round(MAIN_PIN_SIZE / 2), MAIN_PIN_SIZE + MAIN_PIN_POINTER_HEIGHT);
+  activateFormElements(mapFiltersForm, 'select');
+  activateFormElements(mapFiltersForm, 'fieldset');
+  activateFormElements(adForm, 'fieldset');
+  renderPins(ads);
+  mapPinsContainer.addEventListener('click', onMapPinClick, true);
+};
+
+var onMainMapPinLeftClick = function (evt) {
+  if (evt.button === 0) {
+    evt.preventDefault();
+    activatePage();
+    mainMapPin.removeEventListener('mousedown', onMainMapPinLeftClick);
+    mainMapPin.removeEventListener('keydown', onMainMapPinEnterPress);
+  }
+};
+
+var onMainMapPinEnterPress = function (evt) {
+  if (evt.key === 'Enter') {
+    evt.preventDefault();
+    activatePage();
+    mainMapPin.removeEventListener('mousedown', onMainMapPinLeftClick);
+    mainMapPin.removeEventListener('keydown', onMainMapPinEnterPress);
+  }
+};
+
+mainMapPin.addEventListener('mousedown', onMainMapPinLeftClick);
+mainMapPin.addEventListener('keydown', onMainMapPinEnterPress);
 
 // Валидация adForm
 var adFormTitle = adForm.querySelector('#title');
