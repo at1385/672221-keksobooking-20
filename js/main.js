@@ -7,6 +7,7 @@ var PIN_Y_OFFSET = -70;
 var MAIN_PIN_SIZE = 65;
 var MAIN_PIN_POINTER_HEIGHT = 22;
 
+// Создание массива объявлений
 var getRandomElement = function (array) {
   return array[Math.floor(Math.random() * array.length)];
 };
@@ -52,6 +53,7 @@ var getAdsArray = function (itemQuantity) {
 
 var ads = getAdsArray(8);
 
+// Создание пинов объявлений
 var map = document.querySelector('.map');
 var mapPinsContainer = map.querySelector('.map__pins');
 var pinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
@@ -77,6 +79,7 @@ var renderPins = function (adsArray) {
   mapPinsContainer.appendChild(fragment);
 };
 
+// Создание карточки объявления
 var mapFiltersContainer = map.querySelector('.map__filters-container');
 var cardTemplate = document.querySelector('#card').content.querySelector('.map__card');
 var mapCardsContainer = document.createElement('div');
@@ -148,6 +151,7 @@ var renderCard = function (ad) {
   mapCardsContainer.appendChild(adCard);
 };
 
+// Дективация/Активация страницы
 var mainMapPin = mapPinsContainer.querySelector('.map__pin--main');
 var mapFiltersForm = map.querySelector('.map__filters');
 var adForm = document.querySelector('.ad-form');
@@ -213,6 +217,7 @@ var onMainMapPinEnterPress = function (evt) {
 mainMapPin.addEventListener('mousedown', onMainMapPinLeftClick);
 mainMapPin.addEventListener('keydown', onMainMapPinEnterPress);
 
+// Открытие карточки объявления
 var openCard = function (mapPin, adCard) {
   mapPin.addEventListener('click', function () {
     if (mapCardsContainer.firstChild) {
