@@ -78,19 +78,17 @@ var renderPins = function (adsArray) {
   mapPins.appendChild(fragment);
 };
 
-// 11. Личный проект: доверяй, но проверяй (часть 1)
-
 var mainMapPin = mapPins.querySelector('.map__pin--main');
 var mapFiltersForm = map.querySelector('.map__filters');
 var adForm = document.querySelector('.ad-form');
 adForm.setAttribute('action', 'https://javascript.pages.academy/keksobooking');
-var addressInput = adForm.querySelector('#address');
+var adFormAddress = adForm.querySelector('#address');
 
 var getMainPinCoordinate = function (offsetX, offsetY) {
   return (mainMapPin.offsetLeft + offsetX) + ', ' + (mainMapPin.offsetTop + offsetY);
 };
 
-addressInput.value = getMainPinCoordinate(Math.round(MAIN_PIN_SIZE / 2), Math.round(MAIN_PIN_SIZE / 2));
+adFormAddress.value = getMainPinCoordinate(Math.round(MAIN_PIN_SIZE / 2), Math.round(MAIN_PIN_SIZE / 2));
 
 var deactivateFormElements = function (form, elementTagName) {
   var elements = form.querySelectorAll(elementTagName);
@@ -115,7 +113,7 @@ deactivateFormElements(adForm, 'fieldset');
 var activatePage = function () {
   map.classList.remove('map--faded');
   adForm.classList.remove('ad-form--disabled');
-  addressInput.value = getMainPinCoordinate(Math.round(MAIN_PIN_SIZE / 2), MAIN_PIN_SIZE + MAIN_PIN_POINTER_HEIGHT);
+  adFormAddress.value = getMainPinCoordinate(Math.round(MAIN_PIN_SIZE / 2), MAIN_PIN_SIZE + MAIN_PIN_POINTER_HEIGHT);
   activateFormElements(mapFiltersForm, 'select');
   activateFormElements(mapFiltersForm, 'fieldset');
   activateFormElements(adForm, 'fieldset');
