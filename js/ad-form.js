@@ -2,8 +2,8 @@
 
 (function () {
   var adForm = document.querySelector('.ad-form');
-  var adFormAddress = adForm.querySelector('#address');
   var adFormTitle = adForm.querySelector('#title');
+  var adFormAddress = adForm.querySelector('#address');
   var adFormOfferType = adForm.querySelector('#type');
   var adFormOfferPrice = adForm.querySelector('#price');
   var adFormTimeIn = adForm.querySelector('#timein');
@@ -14,12 +14,14 @@
   var adFormOfferImages = adForm.querySelector('#images');
 
   adForm.setAttribute('action', 'https://javascript.pages.academy/keksobooking');
+  window.util.disableFormElements(adForm, 'fieldset');
 
   adFormTitle.setAttribute('minlength', 30);
   adFormTitle.setAttribute('maxlength', 100);
   adFormTitle.setAttribute('required', true);
 
   adFormAddress.setAttribute('readonly', true);
+  window.getAdressCoords(window.pin.main.offsetLeft, window.pin.main.offsetTop, adForm, adFormAddress);
 
   var setMinPrice = function () {
     switch (adFormOfferType.value) {
