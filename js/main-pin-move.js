@@ -6,7 +6,7 @@
   var topEdge = window.data.MAP_Y_MIN - (window.data.MAIN_PIN_SIZE + window.data.MAIN_PIN_POINTER_HEIGHT);
   var bottomEdge = window.data.MAP_Y_MAX - (window.data.MAIN_PIN_SIZE + window.data.MAIN_PIN_POINTER_HEIGHT);
 
-  window.mapMainPin.addEventListener('mousedown', function (evt) {
+  window.pin.main.addEventListener('mousedown', function (evt) {
     if (evt.button === 0) {
       evt.preventDefault();
 
@@ -16,8 +16,8 @@
       };
 
       var mainPinCoords = {
-        x: window.mapMainPin.offsetLeft,
-        y: window.mapMainPin.offsetTop
+        x: window.pin.main.offsetLeft,
+        y: window.pin.main.offsetTop
       };
 
       var onMouseMove = function (moveEvt) {
@@ -33,23 +33,23 @@
           y: moveEvt.clientY
         };
 
-        window.mapMainPin.style.top = (window.mapMainPin.offsetTop - shift.y) + 'px';
-        window.mapMainPin.style.left = (window.mapMainPin.offsetLeft - shift.x) + 'px';
+        window.pin.main.style.top = (window.pin.main.offsetTop - shift.y) + 'px';
+        window.pin.main.style.left = (window.pin.main.offsetLeft - shift.x) + 'px';
 
-        mainPinCoords.x = window.mapMainPin.offsetLeft - shift.x;
-        mainPinCoords.y = window.mapMainPin.offsetTop - shift.y;
+        mainPinCoords.x = window.pin.main.offsetLeft - shift.x;
+        mainPinCoords.y = window.pin.main.offsetTop - shift.y;
 
-        if (window.mapMainPin.offsetLeft - shift.x < leftEdge) {
-          window.mapMainPin.style.left = leftEdge + 'px';
+        if (window.pin.main.offsetLeft - shift.x < leftEdge) {
+          window.pin.main.style.left = leftEdge + 'px';
         }
-        if (window.mapMainPin.offsetLeft - shift.x > rightEdge) {
-          window.mapMainPin.style.left = rightEdge + 'px';
+        if (window.pin.main.offsetLeft - shift.x > rightEdge) {
+          window.pin.main.style.left = rightEdge + 'px';
         }
-        if (window.mapMainPin.offsetTop - shift.y < topEdge) {
-          window.mapMainPin.style.top = topEdge + 'px';
+        if (window.pin.main.offsetTop - shift.y < topEdge) {
+          window.pin.main.style.top = topEdge + 'px';
         }
-        if (window.mapMainPin.offsetTop - shift.y > bottomEdge) {
-          window.mapMainPin.style.top = bottomEdge + 'px';
+        if (window.pin.main.offsetTop - shift.y > bottomEdge) {
+          window.pin.main.style.top = bottomEdge + 'px';
         }
 
         window.getAdressCoords(mainPinCoords.x, mainPinCoords.y, window.adForm.form, window.adForm.address);

@@ -65,40 +65,35 @@
     return cardElement;
   };
 
+  var closeCard = function () {
+    cardsContainer.removeChild(cardsContainer.firstChild);
+    document.removeEventListener('keydown', onCardEscPress);
+  };
+
+  var onCardEscPress = function (evt) {
+    window.util.isEscPress(evt, closeCard);
+  };
+
   window.card = {
     container: cardsContainer,
     render: function (ad) {
+      if (cardsContainer.firstChild) {
+        closeCard();
+      }
+
       var adCard = createCard(ad);
       cardsContainer.appendChild(adCard);
     },
     open: function (mapPin, adCard) {
       mapPin.addEventListener('click', function () {
-        if (cardsContainer.firstChild) {
-          cardsContainer.removeChild(cardsContainer.firstChild);
-        }
-
         window.card.render(adCard);
 
         var closeCardButton = cardsContainer.querySelector('.popup__close');
-
-        var closeCard = function () {
-          cardsContainer.removeChild(cardsContainer.firstChild);
-        };
-
-        var onCardEscPress = function (evt) {
-          if (evt.key === 'Escape') {
-            evt.preventDefault();
-            closeCard();
-            document.removeEventListener('keydown', onCardEscPress);
-          }
-        };
-
-        document.addEventListener('keydown', onCardEscPress);
-
         closeCardButton.addEventListener('click', function () {
           closeCard();
-          document.removeEventListener('keydown', onCardEscPress);
         });
+
+        document.addEventListener('keydown', onCardEscPress);
       });
     }
   };
