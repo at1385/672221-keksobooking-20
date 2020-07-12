@@ -32,4 +32,11 @@
 
   window.pin.main.addEventListener('mousedown', onMainPinLeftClick);
   window.pin.main.addEventListener('keydown', onMainPinEnterPress);
+
+  window.map = {
+    block: map,
+    filtersForm: mapFiltersForm,
+    onMainPinLeftClick: onMainPinLeftClick,
+    onMainPinEnterPress: onMainPinEnterPress
+  };
 })();

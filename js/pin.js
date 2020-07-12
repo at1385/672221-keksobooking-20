@@ -21,6 +21,7 @@
   };
 
   window.pin = {
+    container: pinsContainer,
     main: mainPin,
     render: function (ads) {
       var fragment = document.createDocumentFragment();
