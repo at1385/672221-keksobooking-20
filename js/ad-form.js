@@ -12,6 +12,7 @@
   var adFormGuestQuantity = adForm.querySelector('#capacity');
   var adFormUserAvatar = adForm.querySelector('#avatar');
   var adFormOfferImages = adForm.querySelector('#images');
+  var adFormReset = adForm.querySelector('.ad-form__reset');
 
   adForm.setAttribute('action', 'https://javascript.pages.academy/keksobooking');
   window.util.disableFormElements(adForm, 'fieldset');
@@ -95,8 +96,20 @@
   adFormUserAvatar.setAttribute('accept', 'image/png, image/jpeg');
   adFormOfferImages.setAttribute('accept', 'image/png, image/jpeg');
 
+  adFormReset.addEventListener('click', function (evt) {
+    evt.preventDefault();
+    adForm.reset();
+    window.util.setDefaultCoords();
+    window.getAdressCoords(window.pin.main.offsetLeft, window.pin.main.offsetTop, adForm, adFormAddress);
+  });
+
   adForm.addEventListener('click', function () {
     compareRoomAndGuestQuantity();
+  });
+
+  adForm.addEventListener('submit', function (evt) {
+    evt.preventDefault();
+    window.server.upload(new FormData(adForm), window.adFormSend.onSuccess, window.adFormSend.onError);
   });
 
   window.adForm = {
