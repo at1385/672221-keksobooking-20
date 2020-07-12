@@ -34,6 +34,10 @@
       for (var i = 0; i < elements.length; i++) {
         elements[i].removeAttribute('disabled');
       }
+    },
+    setDefaultCoords: function () {
+      window.pin.main.style.top = window.data.MAIN_PIN_Y + 'px';
+      window.pin.main.style.left = window.data.MAIN_PIN_X + 'px';
     }
   };
 })();
