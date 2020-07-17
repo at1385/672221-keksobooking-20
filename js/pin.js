@@ -32,6 +32,9 @@
 
       pinsContainer.appendChild(fragment);
 
+      window.util.enableFormElements(window.map.filtersForm, 'select');
+      window.util.enableFormElements(window.map.filtersForm, 'fieldset');
+
       pins = pinsContainer.querySelectorAll('.map__pin');
 
       for (i = 1; i < pins.length; i++) {

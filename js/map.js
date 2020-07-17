@@ -14,8 +14,6 @@
     map.classList.remove('map--faded');
     window.adForm.form.classList.remove('ad-form--disabled');
     window.getAdressCoords(window.pin.main.offsetLeft, window.pin.main.offsetTop, window.adForm.form, window.adForm.address);
-    window.util.enableFormElements(mapFiltersForm, 'select');
-    window.util.enableFormElements(mapFiltersForm, 'fieldset');
     window.util.enableFormElements(window.adForm.form, 'fieldset');
     window.server.download(window.pin.render, window.server.onError);
     window.pin.main.removeEventListener('mousedown', onMainPinLeftClick);
