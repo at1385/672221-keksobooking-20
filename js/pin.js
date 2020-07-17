@@ -3,6 +3,7 @@
 (function () {
   var PIN_X_OFFSET = -25;
   var PIN_Y_OFFSET = -70;
+  var ADS_QUANTITY = 5;
 
   var pinsContainer = document.querySelector('.map__pins');
   var pinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
@@ -25,8 +26,9 @@
     main: mainPin,
     render: function (ads) {
       var fragment = document.createDocumentFragment();
+      var adsLength = ads.length > ADS_QUANTITY ? ADS_QUANTITY : ads.length;
 
-      for (var i = 0; i < ads.length; i++) {
+      for (var i = 0; i < adsLength; i++) {
         fragment.appendChild(createPin(ads[i]));
       }
 
