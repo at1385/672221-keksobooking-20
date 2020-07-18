@@ -7,8 +7,8 @@
       window.ads.array = data;
       window.pin.render(window.ads.array);
 
-      window.util.enableFormElements(window.map.filtersForm, 'select');
-      window.util.enableFormElements(window.map.filtersForm, 'fieldset');
+      window.util.enableFormElements(window.fiters.form, 'select');
+      window.util.enableFormElements(window.fiters.form, 'fieldset');
 
       window.pin.collection = window.pin.container.querySelectorAll('.map__pin');
 
