@@ -3,6 +3,7 @@
 (function () {
   var PIN_X_OFFSET = -25;
   var PIN_Y_OFFSET = -70;
+  var PINS_QUANTITY = 5;
 
   var pinsContainer = document.querySelector('.map__pins');
   var pinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
@@ -23,6 +24,15 @@
     container: pinsContainer,
     main: mainPin,
     collection: [],
-    create: createPin
+    render: function (data) {
+      var fragment = document.createDocumentFragment();
+      var pinsLength = data.length > PINS_QUANTITY ? PINS_QUANTITY : data.length;
+
+      for (var i = 0; i < pinsLength; i++) {
+        fragment.appendChild(createPin(data[i]));
+      }
+
+      window.pin.container.appendChild(fragment);
+    }
   };
 })();
