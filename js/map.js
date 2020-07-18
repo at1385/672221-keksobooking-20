@@ -15,7 +15,7 @@
     window.adForm.form.classList.remove('ad-form--disabled');
     window.getAdressCoords(window.pin.main.offsetLeft, window.pin.main.offsetTop, window.adForm.form, window.adForm.address);
     window.util.enableFormElements(window.adForm.form, 'fieldset');
-    window.server.download(window.adsDownload, window.server.onError);
+    window.server.download(window.ads.download, window.server.onError);
     window.pin.main.removeEventListener('mousedown', onMainPinLeftClick);
     window.pin.main.removeEventListener('keydown', onMainPinEnterPress);
   };
