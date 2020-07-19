@@ -36,8 +36,8 @@
       }
 
       window.map.block.classList.add('map--faded');
-      window.util.disableFormElements(window.map.filtersForm, 'select');
-      window.util.disableFormElements(window.map.filtersForm, 'fieldset');
+      window.util.disableFormElements(window.fiters.form, 'select');
+      window.util.disableFormElements(window.fiters.form, 'fieldset');
 
       window.adForm.form.classList.add('ad-form--disabled');
       window.util.disableFormElements(window.adForm.form, 'fieldset');

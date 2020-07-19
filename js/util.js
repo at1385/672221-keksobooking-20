@@ -38,6 +38,15 @@
     setDefaultCoords: function () {
       window.pin.main.style.top = window.data.MAIN_PIN_Y + 'px';
       window.pin.main.style.left = window.data.MAIN_PIN_X + 'px';
+    },
+    deleteChilds: function (parentClass, childClass, i) {
+      var parent = document.querySelector(parentClass);
+      var childs = parent.querySelectorAll(childClass);
+      if (childs) {
+        for (i; i < childs.length; i++) {
+          parent.removeChild(childs[i]);
+        }
+      }
     }
   };
 })();
