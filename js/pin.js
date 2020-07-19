@@ -33,6 +33,18 @@
       }
 
       window.pin.container.appendChild(fragment);
+    },
+    getRelevantCards: function () {
+      window.pin.collection = pinsContainer.querySelectorAll('.map__pin');
+
+      for (var i = 1; i < window.pin.collection.length; i++) {
+        for (var j = 0; j < window.ads.array.length; j++) {
+          if (window.pin.collection[i].querySelector('img').alt === window.ads.array[j].offer.title) {
+            window.card.open(window.pin.collection[i], window.ads.array[j]);
+            break;
+          }
+        }
+      }
     }
   };
 })();
