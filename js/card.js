@@ -95,6 +95,7 @@
 
         document.addEventListener('keydown', onCardEscPress);
       });
-    }
+    },
+    close: closeCard
   };
 })();

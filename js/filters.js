@@ -5,6 +5,10 @@
   var typeFilter = filters.querySelector('#housing-type');
 
   var updateAds = function () {
+    if (window.card.container.firstChild) {
+      window.card.close();
+    }
+
     var i = 1;
     window.util.deleteChilds('.map__pins', '.map__pin', i);
 
