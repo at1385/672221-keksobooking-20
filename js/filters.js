@@ -53,9 +53,9 @@
     window.pin.getRelevantCards();
   };
 
-  filters.addEventListener('change', function () {
+  filters.addEventListener('change', window.util.debounce(function () {
     updateAds();
-  });
+  }));
 
   window.fiters = {
     form: filters

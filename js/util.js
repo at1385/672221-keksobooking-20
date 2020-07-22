@@ -4,6 +4,7 @@
   var ESC_KEY = 'Escape';
   var ENTER_KEY = 'Enter';
   var LEFT_CLICK = 0;
+  var DEBOUNCE_INTERVAL = 500;
 
   window.util = {
     isEscPress: function (evt, action) {
@@ -47,6 +48,19 @@
           parent.removeChild(childs[i]);
         }
       }
+    },
+    debounce: function (callback) {
+      var previousTimeout = null;
+
+      return function () {
+        if (previousTimeout) {
+          window.clearTimeout(previousTimeout);
+        }
+
+        previousTimeout = window.setTimeout(function () {
+          callback.apply(null, arguments);
+        }, DEBOUNCE_INTERVAL);
+      };
     }
   };
 })();
