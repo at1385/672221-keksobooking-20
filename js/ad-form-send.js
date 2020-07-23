@@ -30,9 +30,8 @@
     onSuccess: function () {
       window.util.setDefaultCoords();
 
-      var pins = window.pin.container.querySelectorAll('.map__pin');
-      for (var i = 1; i < pins.length; i++) {
-        window.pin.container.removeChild(pins[i]);
+      for (var i = 1; i < window.pin.collection.length; i++) {
+        window.pin.container.removeChild(window.pin.collection[i]);
       }
 
       if (window.card.container.firstChild) {
