@@ -81,11 +81,11 @@
 
   var compareRoomAndGuestQuantity = function () {
     if (adFormRoomQuantity.value === '1' && adFormGuestQuantity.value !== '1') {
-      adFormGuestQuantity.setCustomValidity('В одной комнате можно разместить только одного гостя!');
+      adFormGuestQuantity.setCustomValidity('1 комната только для 1-го гостя!');
     } else if (adFormRoomQuantity.value === '2' && adFormGuestQuantity.value !== '1' && adFormGuestQuantity.value !== '2') {
-      adFormGuestQuantity.setCustomValidity('В двух комнатах можно разместить только одного или двух гостей!');
+      adFormGuestQuantity.setCustomValidity('2 комнаты только для 1-го или 2-х гостей!');
     } else if (adFormRoomQuantity.value === '3' && adFormGuestQuantity.value === '0') {
-      adFormGuestQuantity.setCustomValidity('В трех комнатах можно разместить не менее одного и не более трех гостей!');
+      adFormGuestQuantity.setCustomValidity('3 комнаты только для 1-го, 2-ух или 3-х гостей!');
     } else if (adFormRoomQuantity.value === '100' && adFormGuestQuantity.value !== '0') {
       adFormGuestQuantity.setCustomValidity('Не для гостей!');
     } else {
