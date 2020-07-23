@@ -35,9 +35,14 @@
         window.pin.container.removeChild(pins[i]);
       }
 
+      if (window.card.container.firstChild) {
+        window.card.close();
+      }
+
       window.map.block.classList.add('map--faded');
       window.util.disableFormElements(window.fiters.form, 'select');
       window.util.disableFormElements(window.fiters.form, 'fieldset');
+      window.fiters.form.reset();
 
       window.adForm.form.classList.add('ad-form--disabled');
       window.util.disableFormElements(window.adForm.form, 'fieldset');
