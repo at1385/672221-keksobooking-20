@@ -98,6 +98,18 @@
 
   adFormReset.addEventListener('click', function (evt) {
     evt.preventDefault();
+
+    for (var i = 1; i < window.pin.collection.length; i++) {
+      window.pin.container.removeChild(window.pin.collection[i]);
+    }
+
+    if (window.card.container.firstChild) {
+      window.card.close();
+    }
+
+    window.pin.render(window.ads.array);
+
+    window.fiters.form.reset();
     adForm.reset();
     window.util.setDefaultCoords();
     window.getAdressCoords(window.pin.main.offsetLeft, window.pin.main.offsetTop, adForm, adFormAddress);
