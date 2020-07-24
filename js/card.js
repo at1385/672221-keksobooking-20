@@ -80,6 +80,7 @@
 
   var closeCard = function () {
     cardsContainer.removeChild(cardsContainer.firstChild);
+    window.pin.container.querySelector('.map__pin--active').classList.remove('map__pin--active');
     document.removeEventListener('keydown', onCardEscPress);
   };
 
@@ -100,6 +101,7 @@
     open: function (mapPin, adCard) {
       mapPin.addEventListener('click', function () {
         window.card.render(adCard);
+        mapPin.classList.add('map__pin--active');
 
         var closeCardButton = cardsContainer.querySelector('.popup__close');
         closeCardButton.addEventListener('click', function () {
