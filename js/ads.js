@@ -4,7 +4,12 @@
   window.ads = {
     array: [],
     download: function (data) {
-      window.ads.array = data;
+      var ads = data;
+
+      window.ads.array = ads.filter(function (ad) {
+        return ad.offer;
+      });
+
       for (var i = 0; i < window.ads.array.length; i++) {
         if (window.ads.array[i].offer.title === 'Императорский дворец в центре Токио') {
           window.ads.array[i].offer.type = 'palace';
