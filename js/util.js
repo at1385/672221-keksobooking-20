@@ -4,6 +4,7 @@
   var ESC_KEY = 'Escape';
   var ENTER_KEY = 'Enter';
   var LEFT_CLICK = 0;
+  var DEBOUNCE_INTERVAL = 500;
 
   window.util = {
     isEscPress: function (evt, action) {
@@ -39,14 +40,32 @@
       window.pin.main.style.top = window.data.MAIN_PIN_Y + 'px';
       window.pin.main.style.left = window.data.MAIN_PIN_X + 'px';
     },
-    deleteChilds: function (parentClass, childClass, i) {
-      var parent = document.querySelector(parentClass);
-      var childs = parent.querySelectorAll(childClass);
+    hideElement: function (element, content) {
+      if (!content && content !== 0 || content.length === 0) {
+        element.style.display = 'none';
+      }
+    },
+    deleteChilds: function (parentSelector, childSelector, i) {
+      var parent = document.querySelector(parentSelector);
+      var childs = parent.querySelectorAll(childSelector);
       if (childs) {
         for (i; i < childs.length; i++) {
           parent.removeChild(childs[i]);
         }
       }
+    },
+    debounce: function (callback) {
+      var previousTimeout = null;
+
+      return function () {
+        if (previousTimeout) {
+          window.clearTimeout(previousTimeout);
+        }
+
+        previousTimeout = window.setTimeout(function () {
+          callback.apply(null, arguments);
+        }, DEBOUNCE_INTERVAL);
+      };
     }
   };
 })();

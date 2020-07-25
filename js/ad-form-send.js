@@ -30,14 +30,18 @@
     onSuccess: function () {
       window.util.setDefaultCoords();
 
-      var pins = window.pin.container.querySelectorAll('.map__pin');
-      for (var i = 1; i < pins.length; i++) {
-        window.pin.container.removeChild(pins[i]);
+      for (var i = 1; i < window.pin.collection.length; i++) {
+        window.pin.container.removeChild(window.pin.collection[i]);
+      }
+
+      if (window.card.container.firstChild) {
+        window.card.close();
       }
 
       window.map.block.classList.add('map--faded');
       window.util.disableFormElements(window.fiters.form, 'select');
       window.util.disableFormElements(window.fiters.form, 'fieldset');
+      window.fiters.form.reset();
 
       window.adForm.form.classList.add('ad-form--disabled');
       window.util.disableFormElements(window.adForm.form, 'fieldset');
