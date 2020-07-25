@@ -43,6 +43,11 @@
     deleteChilds: function (parentClass, childClass, i) {
       var parent = document.querySelector(parentClass);
       var childs = parent.querySelectorAll(childClass);
+    hideElement: function (element, content) {
+      if (!content && content !== 0 || content.length === 0) {
+        element.style.display = 'none';
+      }
+    },
       if (childs) {
         for (i; i < childs.length; i++) {
           parent.removeChild(childs[i]);
