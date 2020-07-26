@@ -5,6 +5,7 @@
   var ENTER_KEY = 'Enter';
   var LEFT_CLICK = 0;
   var DEBOUNCE_INTERVAL = 500;
+  var FILE_TYPES = ['jpg', 'jpeg', 'png'];
 
   window.util = {
     isEscPress: function (evt, action) {
@@ -61,6 +62,40 @@
           callback.apply(null, arguments);
         }, DEBOUNCE_INTERVAL);
       };
+    },
+    createImgElement: function (imgWidth, imgHeight, imgAlt, target) {
+      var img = document.createElement('img');
+
+      img.setAttribute('src', '');
+      img.setAttribute('width', imgWidth);
+      img.setAttribute('height', imgHeight);
+      img.setAttribute('alt', imgAlt);
+
+      target.appendChild(img);
+    },
+    setImage: function (imageChooser, imgWidth, imgHeight, imgAlt, imageContainer) {
+      if (!imageContainer.firstChild) {
+        window.util.createImgElement(imgWidth, imgHeight, imgAlt, imageContainer);
+      }
+
+      var imagePreview = imageContainer.querySelector('img');
+
+      var image = imageChooser.files[0];
+      var imageName = image.name.toLowerCase();
+
+      var matches = FILE_TYPES.some(function (it) {
+        return imageName.endsWith(it);
+      });
+
+      if (matches) {
+        var reader = new FileReader();
+
+        reader.addEventListener('load', function () {
+          imagePreview.src = reader.result;
+        });
+
+        reader.readAsDataURL(image);
+      }
     }
   };
 })();
