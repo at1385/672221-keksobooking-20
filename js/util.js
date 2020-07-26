@@ -40,11 +40,6 @@
       window.pin.main.style.top = window.data.MAIN_PIN_Y + 'px';
       window.pin.main.style.left = window.data.MAIN_PIN_X + 'px';
     },
-    hideElement: function (element, content) {
-      if (!content && content !== 0 || content.length === 0) {
-        element.style.display = 'none';
-      }
-    },
     deleteChilds: function (parentSelector, childSelector, i) {
       var parent = document.querySelector(parentSelector);
       var childs = parent.querySelectorAll(childSelector);
