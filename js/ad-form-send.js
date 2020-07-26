@@ -46,6 +46,7 @@
       window.adForm.form.classList.add('ad-form--disabled');
       window.util.disableFormElements(window.adForm.form, 'fieldset');
       window.adForm.form.reset();
+      window.adFormImages.reset();
       window.getAdressCoords(window.pin.main.offsetLeft, window.pin.main.offsetTop, window.adForm.form, window.adForm.address);
 
       window.pin.main.addEventListener('mousedown', window.map.onMainPinLeftClick);
