@@ -30,12 +30,12 @@
     onSuccess: function () {
       window.util.setDefaultCoords();
 
-      for (var i = 1; i < window.pin.collection.length; i++) {
-        window.pin.container.removeChild(window.pin.collection[i]);
-      }
-
       if (window.card.container.firstChild) {
         window.card.close();
+      }
+
+      for (var i = 1; i < window.pin.collection.length; i++) {
+        window.pin.container.removeChild(window.pin.collection[i]);
       }
 
       window.map.block.classList.add('map--faded');
@@ -46,6 +46,7 @@
       window.adForm.form.classList.add('ad-form--disabled');
       window.util.disableFormElements(window.adForm.form, 'fieldset');
       window.adForm.form.reset();
+      window.adFormImages.reset();
       window.getAdressCoords(window.pin.main.offsetLeft, window.pin.main.offsetTop, window.adForm.form, window.adForm.address);
 
       window.pin.main.addEventListener('mousedown', window.map.onMainPinLeftClick);

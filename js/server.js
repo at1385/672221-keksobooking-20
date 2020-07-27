@@ -4,8 +4,16 @@
   var DOWNLOAD_URL = 'https://javascript.pages.academy/keksobooking/data';
   var UPLOAD_URL = 'https://javascript.pages.academy/keksobooking';
   var TIMEOUT_IN_MS = 10000;
+
   var StatusCode = {
-    OK: 200
+    OK: 200,
+    MOVED_PERMANENTLY: 301,
+    MOVED_TEMPORARILY: 302,
+    BAD_REQUEST: 400,
+    UNAUTHORIZED: 401,
+    FORBIDDEN: 403,
+    NOT_FOUND: 404,
+    SERVER_ERROR: 500
   };
 
   window.server = {
@@ -14,10 +22,39 @@
       xhr.responseType = 'json';
 
       xhr.addEventListener('load', function () {
-        if (xhr.status === StatusCode.OK) {
-          onSuccess(xhr.response);
-        } else {
-          onError('Статус ответа: ' + xhr.status + ' ' + xhr.statusText);
+        var error;
+
+        switch (xhr.status) {
+          case StatusCode.OK:
+            onSuccess(xhr.response);
+            break;
+          case StatusCode.MOVED_PERMANENTLY:
+            error = 'Ошибка 301: Перемещено навсегда';
+            break;
+          case StatusCode.MOVED_TEMPORARILY:
+            error = 'Ошибка 302: Перемещено временно';
+            break;
+          case StatusCode.BAD_REQUEST:
+            error = 'Ошибка 400: Неверный запрос';
+            break;
+          case StatusCode.UNAUTHORIZED:
+            error = 'Ошибка 401: Пользователь не авторизован';
+            break;
+          case StatusCode.FORBIDDEN:
+            error = 'Ошибка 403: Доступ запрещен';
+            break;
+          case StatusCode.NOT_FOUND:
+            error = 'Ошибка 404: Ничего не найдено';
+            break;
+          case StatusCode.SERVER_ERROR:
+            error = 'Ошибка 500: Внутренняя ошибка сервера';
+            break;
+          default:
+            error = 'Статус ответа: ' + xhr.status + ' ' + xhr.statusText;
+        }
+
+        if (error) {
+          onError(error);
         }
       });
 
@@ -39,10 +76,39 @@
       xhr.responseType = 'json';
 
       xhr.addEventListener('load', function () {
-        if (xhr.status === StatusCode.OK) {
-          onSuccess(xhr.response);
-        } else {
-          onError('Статус ответа: ' + xhr.status + ' ' + xhr.statusText);
+        var error;
+
+        switch (xhr.status) {
+          case StatusCode.OK:
+            onSuccess(xhr.response);
+            break;
+          case StatusCode.MOVED_PERMANENTLY:
+            error = 'Ошибка 301: Перемещено навсегда';
+            break;
+          case StatusCode.MOVED_TEMPORARILY:
+            error = 'Ошибка 302: Перемещено временно';
+            break;
+          case StatusCode.BAD_REQUEST:
+            error = 'Ошибка 400: Неверный запрос';
+            break;
+          case StatusCode.UNAUTHORIZED:
+            error = 'Ошибка 401: Пользователь не авторизован';
+            break;
+          case StatusCode.FORBIDDEN:
+            error = 'Ошибка 403: Доступ запрещен';
+            break;
+          case StatusCode.NOT_FOUND:
+            error = 'Ошибка 404: Ничего не найдено';
+            break;
+          case StatusCode.SERVER_ERROR:
+            error = 'Ошибка 500: Внутренняя ошибка сервера';
+            break;
+          default:
+            error = 'Статус ответа: ' + xhr.status + ' ' + xhr.statusText;
+        }
+
+        if (error) {
+          onError(error);
         }
       });
 
