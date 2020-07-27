@@ -9,26 +9,11 @@
         element.style.display = 'none';
       }
     },
-    translateOfferType: function (offerType) {
-      switch (offerType) {
-        case 'palace':
-          offerType = 'Дворец';
-          break;
-
-        case 'flat':
-          offerType = 'Квартира';
-          break;
-
-        case 'house':
-          offerType = 'Дом';
-          break;
-
-        case 'bungalo':
-          offerType = 'Бунгало';
-          break;
-      }
-
-      return offerType;
+    typeNameEngToRus: {
+      'palace': 'Дворец',
+      'flat': 'Квартира',
+      'house': 'Дом',
+      'bungalo': 'Бунгало'
     },
     fillFeatures: function (listItems) {
       for (var i = 0; i < listItems.length; i++) {

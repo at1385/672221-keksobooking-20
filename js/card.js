@@ -20,7 +20,7 @@
     cardElement.querySelector('.popup__text--price').textContent = card.offer.price + '₽/ночь';
     window.cardUtil.hideElement(cardElement.querySelector('.popup__text--price'), card.offer.price);
 
-    cardElement.querySelector('.popup__type').textContent = window.cardUtil.translateOfferType(card.offer.type);
+    cardElement.querySelector('.popup__type').textContent = window.cardUtil.typeNameEngToRus[card.offer.type];
     window.cardUtil.hideElement(cardElement.querySelector('.popup__type'), card.offer.type);
 
     cardElement.querySelector('.popup__text--capacity').textContent = card.offer.rooms + ' комнаты для ' + card.offer.guests + ' гостей';
