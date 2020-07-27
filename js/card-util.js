@@ -15,29 +15,30 @@
       'house': 'Дом',
       'bungalo': 'Бунгало'
     },
-    fillFeatures: function (listItems) {
-      for (var i = 0; i < listItems.length; i++) {
-        listItems[i].textContent = FEATURES[i];
+    fillFeatures: function (features) {
+      for (var i = 0; i < features.length; i++) {
+        features[i].textContent = FEATURES[i];
       }
     },
-    hideUnavailableFeature: function (list, array) {
-      for (var i = 0; i < list.length; i++) {
-        list[i].style.display = 'none';
-        for (var j = 0; j < array.length; j++) {
-          if (array[j] === list[i].textContent) {
-            list[i].style.display = 'inline-block';
+    hideUnavailableFeature: function (features, array) {
+      for (var i = 0; i < features.length; i++) {
+        features[i].style.display = 'none';
+
+        array.forEach(function (element) {
+          if (element === features[i].textContent) {
+            features[i].style.display = 'inline-block';
           }
-        }
+        });
       }
     },
     addPhotos: function (array, photo) {
       var fragment = document.createDocumentFragment();
 
-      for (var i = 0; i < array.length; i++) {
+      array.forEach(function (element) {
         var newPhoto = photo.cloneNode(true);
-        newPhoto.src = array[i];
+        newPhoto.src = element;
         fragment.appendChild(newPhoto);
-      }
+      });
 
       return fragment;
     }
