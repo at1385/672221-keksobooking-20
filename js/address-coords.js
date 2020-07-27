@@ -10,16 +10,12 @@
       mainPinX = window.data.MAP_X_MAX;
     }
 
-    if (form.classList.contains('ad-form--disabled')) {
-      var mainPinY = Math.round(y + window.data.MAIN_PIN_SIZE / 2);
-    } else {
-      mainPinY = Math.round(y + window.data.MAIN_PIN_SIZE + window.data.MAIN_PIN_POINTER_HEIGHT);
+    var mainPinY = (form.classList.contains('ad-form--disabled')) ? Math.round(y + window.data.MAIN_PIN_SIZE / 2) : Math.round(y + window.data.MAIN_PIN_SIZE + window.data.MAIN_PIN_POINTER_HEIGHT);
 
-      if (mainPinY < window.data.MAP_Y_MIN) {
-        mainPinY = window.data.MAP_Y_MIN;
-      } else if (mainPinY > window.data.MAP_Y_MAX) {
-        mainPinY = window.data.MAP_Y_MAX;
-      }
+    if (mainPinY < window.data.MAP_Y_MIN) {
+      mainPinY = window.data.MAP_Y_MIN;
+    } else if (mainPinY > window.data.MAP_Y_MAX) {
+      mainPinY = window.data.MAP_Y_MAX;
     }
 
     address.value = mainPinX + ', ' + mainPinY;
