@@ -30,12 +30,12 @@
     onSuccess: function () {
       window.util.setDefaultCoords();
 
-      for (var i = 1; i < window.pin.collection.length; i++) {
-        window.pin.container.removeChild(window.pin.collection[i]);
-      }
-
       if (window.card.container.firstChild) {
         window.card.close();
+      }
+
+      for (var i = 1; i < window.pin.collection.length; i++) {
+        window.pin.container.removeChild(window.pin.collection[i]);
       }
 
       window.map.block.classList.add('map--faded');
