@@ -42,13 +42,17 @@
     }
   };
 
+  var onOfferTypeChange = function () {
+    setMinPrice();
+  };
+
   setMinPrice();
-  adFormOfferType.addEventListener('change', setMinPrice);
+  adFormOfferType.addEventListener('change', onOfferTypeChange);
 
   adFormOfferPrice.setAttribute('max', 1000000);
   adFormOfferPrice.setAttribute('required', true);
 
-  var setTimeOut = function () {
+  var onTimeOutChange = function () {
     switch (adFormTimeIn.value) {
       case '12:00':
         adFormTimeOut.value = '12:00';
@@ -61,7 +65,7 @@
     }
   };
 
-  var setTimeIn = function () {
+  var onTimeInChange = function () {
     switch (adFormTimeOut.value) {
       case '12:00':
         adFormTimeIn.value = '12:00';
@@ -74,8 +78,8 @@
     }
   };
 
-  adFormTimeIn.addEventListener('change', setTimeOut);
-  adFormTimeOut.addEventListener('change', setTimeIn);
+  adFormTimeIn.addEventListener('change', onTimeOutChange);
+  adFormTimeOut.addEventListener('change', onTimeInChange);
 
   var compareRoomAndGuestQuantity = function () {
     if (adFormRoomQuantity.value === '1' && adFormGuestQuantity.value !== '1') {
