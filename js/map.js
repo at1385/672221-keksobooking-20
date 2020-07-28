@@ -5,9 +5,6 @@
   var mapFiltersContainer = map.querySelector('.map__filters-container');
   map.insertBefore(window.card.container, mapFiltersContainer);
 
-  window.util.disableFormElements(window.fiters.form, 'select');
-  window.util.disableFormElements(window.fiters.form, 'fieldset');
-
   var activatePage = function () {
     map.classList.remove('map--faded');
     window.adForm.form.classList.remove('ad-form--disabled');

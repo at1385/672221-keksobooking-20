@@ -16,6 +16,9 @@
   var guestsFilter = filters.querySelector('#housing-guests');
   var featuresFilter = filters.querySelector('#housing-features');
 
+  window.util.disableFormElements(filters, 'select');
+  window.util.disableFormElements(filters, 'fieldset');
+
   var updateAds = function () {
     if (window.card.container.firstChild) {
       window.card.close();
