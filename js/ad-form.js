@@ -47,19 +47,19 @@
     switch (adFormOfferType.value) {
       case HousingType.BUNGALO:
         adFormOfferPrice.setAttribute('min', HousingMinPrice.BUNGALO);
-        adFormOfferPrice.placeholder = HousingMinPrice.BUNGALO;
+        adFormOfferPrice.placeholder = 'от ' + HousingMinPrice.BUNGALO;
         break;
       case HousingType.FLAT:
         adFormOfferPrice.setAttribute('min', HousingMinPrice.FLAT);
-        adFormOfferPrice.placeholder = HousingMinPrice.FLAT;
+        adFormOfferPrice.placeholder = 'от ' + HousingMinPrice.FLAT;
         break;
       case HousingType.HOUSE:
         adFormOfferPrice.setAttribute('min', HousingMinPrice.HOUSE);
-        adFormOfferPrice.placeholder = HousingMinPrice.HOUSE;
+        adFormOfferPrice.placeholder = 'от ' + HousingMinPrice.HOUSE;
         break;
       case HousingType.PALACE:
         adFormOfferPrice.setAttribute('min', HousingMinPrice.PALACE);
-        adFormOfferPrice.placeholder = HousingMinPrice.PALACE;
+        adFormOfferPrice.placeholder = 'от ' + HousingMinPrice.PALACE;
     }
   };
 
