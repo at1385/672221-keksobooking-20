@@ -29,35 +29,32 @@
 
     var checkedFeatures = Array.from(featuresFilter.querySelectorAll('input:checked'));
 
+    var filterByPrice = function (ad) {
+      switch (priceFilter.value) {
+        case PriceRange.MIDDLE:
+          return ad.offer.price >= 10000 && ad.offer.price <= 50000;
+        case PriceRange.LOW:
+          return ad.offer.price < 10000;
+        case PriceRange.HIGH:
+          return ad.offer.price > 50000;
+        default:
+          return ad.offer.price;
+      }
+    };
+
+    var filterByFeatures = function (ad) {
+      return checkedFeatures.every(function (feature) {
+        return ad.offer.features.includes(feature.value);
+      });
+    };
+
     window.pin.render(window.ads.array
       .filter(function (ad) {
-        var typeAds = (typeFilter.value !== FILTER_DEFAULT_VALUE) ? ad.offer.type === typeFilter.value : window.ads.array;
-        return typeAds;
-      })
-      .filter(function (ad) {
-        switch (priceFilter.value) {
-          case PriceRange.MIDDLE:
-            return ad.offer.price >= 10000 && ad.offer.price <= 50000;
-          case PriceRange.LOW:
-            return ad.offer.price < 10000;
-          case PriceRange.HIGH:
-            return ad.offer.price > 50000;
-          default:
-            return ad.offer.price;
-        }
-      })
-      .filter(function (ad) {
-        var roomsAds = (roomsFilter.value !== FILTER_DEFAULT_VALUE) ? ad.offer.rooms === +roomsFilter.value : window.ads.array;
-        return roomsAds;
-      })
-      .filter(function (ad) {
-        var guestsAds = (guestsFilter.value !== FILTER_DEFAULT_VALUE) ? ad.offer.guests === +guestsFilter.value : window.ads.array;
-        return guestsAds;
-      })
-      .filter(function (ad) {
-        return checkedFeatures.every(function (feature) {
-          return ad.offer.features.includes(feature.value);
-        });
+        return ((typeFilter.value !== FILTER_DEFAULT_VALUE) ? ad.offer.type === typeFilter.value : window.ads.array) &&
+        filterByPrice(ad) &&
+        ((roomsFilter.value !== FILTER_DEFAULT_VALUE) ? ad.offer.rooms === +roomsFilter.value : window.ads.array) &&
+        ((guestsFilter.value !== FILTER_DEFAULT_VALUE) ? ad.offer.guests === +guestsFilter.value : window.ads.array) &&
+        filterByFeatures(ad);
       })
     );
 
