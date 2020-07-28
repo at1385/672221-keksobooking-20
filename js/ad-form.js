@@ -1,6 +1,27 @@
 'use strict';
 
 (function () {
+  var MAX_HOUSING_PRICE = 1000000;
+
+  var TitleLength = {
+    MIN: 30,
+    MAX: 100
+  };
+
+  var HousingType = {
+    BUNGALO: 'bungalo',
+    FLAT: 'flat',
+    HOUSE: 'house',
+    PALACE: 'palace'
+  };
+
+  var HousingMinPrice = {
+    BUNGALO: 0,
+    FLAT: 1000,
+    HOUSE: 5000,
+    PALACE: 10000
+  };
+
   var adForm = document.querySelector('.ad-form');
   var adFormTitle = adForm.querySelector('#title');
   var adFormAddress = adForm.querySelector('#address');
@@ -15,8 +36,8 @@
   adForm.setAttribute('action', 'https://javascript.pages.academy/keksobooking');
   window.util.disableFormElements(adForm, 'fieldset');
 
-  adFormTitle.setAttribute('minlength', 30);
-  adFormTitle.setAttribute('maxlength', 100);
+  adFormTitle.setAttribute('minlength', TitleLength.MIN);
+  adFormTitle.setAttribute('maxlength', TitleLength.MAX);
   adFormTitle.setAttribute('required', true);
 
   adFormAddress.setAttribute('readonly', true);
@@ -24,21 +45,21 @@
 
   var setMinPrice = function () {
     switch (adFormOfferType.value) {
-      case 'bungalo':
-        adFormOfferPrice.setAttribute('min', 0);
-        adFormOfferPrice.placeholder = '0';
+      case HousingType.BUNGALO:
+        adFormOfferPrice.setAttribute('min', HousingMinPrice.BUNGALO);
+        adFormOfferPrice.placeholder = HousingMinPrice.BUNGALO;
         break;
-      case 'flat':
-        adFormOfferPrice.setAttribute('min', 1000);
-        adFormOfferPrice.placeholder = '1000';
+      case HousingType.FLAT:
+        adFormOfferPrice.setAttribute('min', HousingMinPrice.FLAT);
+        adFormOfferPrice.placeholder = HousingMinPrice.FLAT;
         break;
-      case 'house':
-        adFormOfferPrice.setAttribute('min', 5000);
-        adFormOfferPrice.placeholder = '5000';
+      case HousingType.HOUSE:
+        adFormOfferPrice.setAttribute('min', HousingMinPrice.HOUSE);
+        adFormOfferPrice.placeholder = HousingMinPrice.HOUSE;
         break;
-      case 'palace':
-        adFormOfferPrice.setAttribute('min', 10000);
-        adFormOfferPrice.placeholder = '10000';
+      case HousingType.PALACE:
+        adFormOfferPrice.setAttribute('min', HousingMinPrice.PALACE);
+        adFormOfferPrice.placeholder = HousingMinPrice.PALACE;
     }
   };
 
@@ -49,7 +70,7 @@
   setMinPrice();
   adFormOfferType.addEventListener('change', onOfferTypeChange);
 
-  adFormOfferPrice.setAttribute('max', 1000000);
+  adFormOfferPrice.setAttribute('max', MAX_HOUSING_PRICE);
   adFormOfferPrice.setAttribute('required', true);
 
   var onTimeOutChange = function () {
