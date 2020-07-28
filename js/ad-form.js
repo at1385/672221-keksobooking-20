@@ -118,23 +118,7 @@
 
   adFormReset.addEventListener('click', function (evt) {
     evt.preventDefault();
-
-    if (window.card.container.firstChild) {
-      window.card.close();
-    }
-
-    for (var i = 1; i < window.pin.collection.length; i++) {
-      window.pin.container.removeChild(window.pin.collection[i]);
-    }
-
-    window.fiters.form.reset();
-    adForm.reset();
-    window.util.setDefaultCoords();
-    window.getAdressCoords(window.pin.main.offsetLeft, window.pin.main.offsetTop, adForm, adFormAddress);
-    window.adFormImages.reset();
-
-    window.pin.render(window.ads.array);
-    window.pin.getRelevantCards();
+    window.setOriginalState();
   });
 
   adForm.addEventListener('click', function () {
