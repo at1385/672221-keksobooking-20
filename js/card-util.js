@@ -20,16 +20,10 @@
         features[i].textContent = FEATURES[i];
       }
     },
-    hideUnavailableFeature: function (features, array) {
-      for (var i = 0; i < features.length; i++) {
-        features[i].style.display = 'none';
-
-        array.forEach(function (element) {
-          if (element === features[i].textContent) {
-            features[i].style.display = 'inline-block';
-          }
-        });
-      }
+    hideUnavailableFeatures: function (features, array) {
+      features.forEach(function (element) {
+        element.style.display = (array.indexOf(element.textContent) >= 0) ? 'inline-block' : 'none';
+      });
     },
     addPhotos: function (array, photo) {
       var fragment = document.createDocumentFragment();

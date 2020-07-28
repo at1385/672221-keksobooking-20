@@ -31,7 +31,7 @@
 
     var cardFeatures = cardElement.querySelectorAll('.popup__feature');
     window.cardUtil.fillFeatures(cardFeatures);
-    window.cardUtil.hideUnavailableFeature(cardFeatures, card.offer.features);
+    window.cardUtil.hideUnavailableFeatures(cardFeatures, card.offer.features);
     window.cardUtil.hideElement(cardElement.querySelector('.popup__features'), card.offer.features);
 
     cardElement.querySelector('.popup__description').textContent = card.offer.description;
