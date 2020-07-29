@@ -73,30 +73,25 @@
   adFormOfferPrice.setAttribute('max', MAX_HOUSING_PRICE);
   adFormOfferPrice.setAttribute('required', true);
 
-  var onTimeOutChange = function () {
-    switch (adFormTimeIn.value) {
+  var synchronizeTime = function (chosenTime, adaptiveTime) {
+    switch (chosenTime.value) {
       case '12:00':
-        adFormTimeOut.value = '12:00';
+        adaptiveTime.value = '12:00';
         break;
       case '13:00':
-        adFormTimeOut.value = '13:00';
+        adaptiveTime.value = '13:00';
         break;
       case '14:00':
-        adFormTimeOut.value = '14:00';
+        adaptiveTime.value = '14:00';
     }
   };
 
+  var onTimeOutChange = function () {
+    synchronizeTime(adFormTimeIn, adFormTimeOut);
+  };
+
   var onTimeInChange = function () {
-    switch (adFormTimeOut.value) {
-      case '12:00':
-        adFormTimeIn.value = '12:00';
-        break;
-      case '13:00':
-        adFormTimeIn.value = '13:00';
-        break;
-      case '14:00':
-        adFormTimeIn.value = '14:00';
-    }
+    synchronizeTime(adFormTimeOut, adFormTimeIn);
   };
 
   adFormTimeIn.addEventListener('change', onTimeOutChange);
