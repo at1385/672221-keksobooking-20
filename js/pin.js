@@ -38,9 +38,9 @@
       window.pin.collection = pinsContainer.querySelectorAll('.map__pin');
 
       for (var i = 1; i < window.pin.collection.length; i++) {
-        for (var j = 0; j < window.ads.array.length; j++) {
-          if (window.pin.collection[i].querySelector('img').alt === window.ads.array[j].offer.title) {
-            window.card.open(window.pin.collection[i], window.ads.array[j]);
+        for (var j = 0; j < window.ads.data.length; j++) {
+          if (window.pin.collection[i].querySelector('img').alt === window.ads.data[j].offer.title) {
+            window.card.open(window.pin.collection[i], window.ads.data[j]);
             break;
           }
         }

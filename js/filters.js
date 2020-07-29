@@ -48,12 +48,12 @@
       });
     };
 
-    window.pin.render(window.ads.array
+    window.pin.render(window.ads.data
       .filter(function (ad) {
-        return ((typeFilter.value !== FILTER_DEFAULT_VALUE) ? ad.offer.type === typeFilter.value : window.ads.array) &&
+        return ((typeFilter.value !== FILTER_DEFAULT_VALUE) ? ad.offer.type === typeFilter.value : window.ads.data) &&
         filterByPrice(ad) &&
-        ((roomsFilter.value !== FILTER_DEFAULT_VALUE) ? ad.offer.rooms === +roomsFilter.value : window.ads.array) &&
-        ((guestsFilter.value !== FILTER_DEFAULT_VALUE) ? ad.offer.guests === +guestsFilter.value : window.ads.array) &&
+        ((roomsFilter.value !== FILTER_DEFAULT_VALUE) ? ad.offer.rooms === +roomsFilter.value : window.ads.data) &&
+        ((guestsFilter.value !== FILTER_DEFAULT_VALUE) ? ad.offer.guests === +guestsFilter.value : window.ads.data) &&
         filterByFeatures(ad);
       })
     );

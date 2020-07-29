@@ -20,15 +20,15 @@
         features[i].textContent = FEATURES[i];
       }
     },
-    hideUnavailableFeatures: function (features, array) {
+    hideUnavailableFeatures: function (features, adFeatures) {
       features.forEach(function (element) {
-        element.style.display = (array.indexOf(element.textContent) >= 0) ? 'inline-block' : 'none';
+        element.style.display = (adFeatures.indexOf(element.textContent) >= 0) ? 'inline-block' : 'none';
       });
     },
-    addPhotos: function (array, photo) {
+    addPhotos: function (adPhotos, photo) {
       var fragment = document.createDocumentFragment();
 
-      array.forEach(function (element) {
+      adPhotos.forEach(function (element) {
         var newPhoto = photo.cloneNode(true);
         newPhoto.src = element;
         fragment.appendChild(newPhoto);

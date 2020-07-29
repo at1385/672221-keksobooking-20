@@ -2,22 +2,20 @@
 
 (function () {
   window.ads = {
-    array: [],
-    download: function (data) {
-      var ads = data;
-
-      window.ads.array = ads.filter(function (ad) {
+    data: [],
+    download: function (ads) {
+      window.ads.data = ads.filter(function (ad) {
         return ad.offer;
       });
 
-      for (var i = 0; i < window.ads.array.length; i++) {
-        if (window.ads.array[i].offer.title === 'Императорский дворец в центре Токио') {
-          window.ads.array[i].offer.type = 'palace';
+      for (var i = 0; i < window.ads.data.length; i++) {
+        if (window.ads.data[i].offer.title === 'Императорский дворец в центре Токио') {
+          window.ads.data[i].offer.type = 'palace';
           break;
         }
       }
 
-      window.pin.render(window.ads.array);
+      window.pin.render(window.ads.data);
 
       window.util.enableFormElements(window.fiters.form, 'select');
       window.util.enableFormElements(window.fiters.form, 'fieldset');
