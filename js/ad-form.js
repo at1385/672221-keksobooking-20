@@ -40,6 +40,25 @@
   adFormTitle.setAttribute('maxlength', TitleLength.MAX);
   adFormTitle.setAttribute('required', true);
 
+  var configureInvalidEvent = function (inputField, onInputFieldEvent) {
+    inputField.style = 'border-width: 2px; border-color: red;';
+    inputField.addEventListener('input', onInputFieldEvent);
+  };
+
+  var onAdFormTitleInput = function () {
+    if (adFormTitle.value.length >= TitleLength.MIN) {
+      adFormTitle.removeAttribute('style');
+    } else {
+      adFormTitle.style = 'border-width: 2px; border-color: red;';
+    }
+  };
+
+  var onAdFormTitleInvalid = function () {
+    configureInvalidEvent(adFormTitle, onAdFormTitleInput);
+  };
+
+  adFormTitle.addEventListener('invalid', onAdFormTitleInvalid);
+
   adFormAddress.setAttribute('readonly', true);
   window.getAdressCoords(window.pin.main.offsetLeft, window.pin.main.offsetTop, adForm, adFormAddress);
 
@@ -72,6 +91,23 @@
 
   adFormOfferPrice.setAttribute('max', MAX_HOUSING_PRICE);
   adFormOfferPrice.setAttribute('required', true);
+
+  var onAdFormOfferPriceInput = function () {
+    if ((adFormOfferType.value === HousingType.BUNGALO && adFormOfferPrice.value >= HousingMinPrice.BUNGALO) ||
+        (adFormOfferType.value === HousingType.FLAT && adFormOfferPrice.value >= HousingMinPrice.FLAT) ||
+        (adFormOfferType.value === HousingType.HOUSE && adFormOfferPrice.value >= HousingMinPrice.HOUSE) ||
+        (adFormOfferType.value === HousingType.PALACE && adFormOfferPrice.value >= HousingMinPrice.PALACE)) {
+      adFormOfferPrice.removeAttribute('style');
+    } else {
+      adFormOfferPrice.style = 'border-width: 2px; border-color: red;';
+    }
+  };
+
+  var onAdFormOfferPriceInvalid = function () {
+    configureInvalidEvent(adFormOfferPrice, onAdFormOfferPriceInput);
+  };
+
+  adFormOfferPrice.addEventListener('invalid', onAdFormOfferPriceInvalid);
 
   var synchronizeTime = function (chosenTime, adaptiveTime) {
     switch (chosenTime.value) {
@@ -111,9 +147,16 @@
     }
   };
 
+  var removeInputEvent = function (inputField, onInputFieldEvent) {
+    inputField.removeAttribute('style');
+    inputField.removeEventListener('input', onInputFieldEvent);
+  };
+
   adFormReset.addEventListener('click', function (evt) {
     evt.preventDefault();
     window.setOriginalState();
+    removeInputEvent(adFormTitle, onAdFormTitleInput);
+    removeInputEvent(adFormOfferPrice, onAdFormOfferPriceInput);
   });
 
   adForm.addEventListener('click', function () {
@@ -123,6 +166,8 @@
   adForm.addEventListener('submit', function (evt) {
     evt.preventDefault();
     window.server.upload(new FormData(adForm), window.adFormSend.onSuccess, window.adFormSend.onError);
+    adFormTitle.removeEventListener('input', onAdFormTitleInput);
+    adFormOfferPrice.removeEventListener('input', onAdFormOfferPriceInput);
   });
 
   window.adForm = {
