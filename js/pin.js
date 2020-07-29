@@ -21,6 +21,7 @@
   };
 
   window.pin = {
+    QUANTITY: PINS_QUANTITY,
     container: pinsContainer,
     main: mainPin,
     collection: [],
